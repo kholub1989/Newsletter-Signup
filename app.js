@@ -2,10 +2,13 @@ const express         = require('express'),
       bodyParser      = require('body-parser'),
       request         = require('request'),
       PORT            = 3000;
+require('dotenv').config();
 
 const app = express();
+const api_key = process.env.API_KEY;
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({extended: true}));
+
 
 app.get('/', function(req, res){
   res.sendFile(__dirname +  '/signup.html');
@@ -35,7 +38,7 @@ app.post('/', function(req, res){
     url: 'https://us4.api.mailchimp.com/3.0/lists/c20084a671',
     method: 'POST',
     headers: {
-      'Authorization': 'kholub1989 55642fb1a846351386ab53381808a196-us4'
+      'Authorization': `kholub1989 ${api_key}`
     },
     body: jsonData,
   };
